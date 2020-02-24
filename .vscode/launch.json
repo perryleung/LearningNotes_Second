@@ -23,6 +23,44 @@
           }
         ],
         "preLaunchTask": "Compile"    //与tasks.json的label一样
-      }
+      },
+      {
+        "name": "(gdb) Launch direct",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/${workspaceRootFolderName}",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": true,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    },
+    {
+        "name": "(gdb) Launch makefile",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/debug/${workspaceRootFolderName}",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": true,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    },
     ]
   }
