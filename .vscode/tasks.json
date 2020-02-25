@@ -46,6 +46,81 @@
                  "focus": false,
                  "panel": "shared" // 不同的文件的编译信息共享一个终端面板
             },
-        }
+        },
+        {
+            "label": "build-release",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "*.cpp",
+                "-o${workspaceRootFolderName}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "build-debug",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "*.cpp",
+                "-o${workspaceRootFolderName}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "make default",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "default"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "make all",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "all"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "make clean",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
     ]
 }
