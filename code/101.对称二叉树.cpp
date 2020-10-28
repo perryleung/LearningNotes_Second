@@ -55,16 +55,13 @@ public:
         return isMirrorTree(root, root);
     }
     bool isMirrorTree(TreeNode *root1, TreeNode *root2) {
-        if (!root1 && !root2){
+        if(!root1 && !root2)
             return true;
-        }
-        if (!root1 || !root2){
+        if(!root1 || !root2)
             return false;
-        }
-        if (root1->val != root2->val){
+        if(root1->val != root2->val)
             return false;
-        }
-        return isMirrorTree(root1->left, root2->right) && isMirrorTree(root2->left, root1->right);
+        return isMirrorTree(root1->left, root2->right) && isMirrorTree(root1->right, root2->left);
     }
 };
 // @lc code=end

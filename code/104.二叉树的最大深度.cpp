@@ -45,14 +45,11 @@
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        if (!root){
+        if(!root)
             return 0;
-        }else {
-            int left_depth = maxDepth(root->left);
-            int right_depth = maxDepth(root->right);
-            int total_depth = left_depth > right_depth ? left_depth : right_depth;
-            return total_depth + 1;
-        }
+        int left_depth = maxDepth(root->left);
+        int right_depth = maxDepth(root->right);
+        return max(left_depth, right_depth) + 1;
     }
 };
 // @lc code=end

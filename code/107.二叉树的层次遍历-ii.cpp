@@ -55,7 +55,6 @@ public:
         levelOB(root, 0);
         return vector<vector<int>>(v.rbegin(), v.rend());
     }
-    
     void levelOB(TreeNode* root, int level){
         if(!root){
             return;
