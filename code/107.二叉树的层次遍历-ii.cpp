@@ -50,22 +50,27 @@
 #include <queue>
 class Solution {
 public:
-    vector<vector<int>> v;
     vector<vector<int> > levelOrderBottom(TreeNode* root) {
-        levelOB(root, 0);
-        return vector<vector<int>>(v.rbegin(), v.rend());
-    }
-    void levelOB(TreeNode* root, int level){
-        if(!root){
-            return;
+        vector<vector<int>> res;
+        if(!root)
+            return res;
+        queue<TreeNode *> que;
+        que.push(root);
+        while(!que.empty()){
+            vector<int> tmp;
+            int level_size = que.size();
+            while(level_size--){
+                TreeNode* tmp_data = que.front();
+                que.pop();
+                tmp.push_back(tmp_data->val);
+                if(tmp_data->left)
+                    que.push(tmp_data->left);
+                if(tmp_data->right)
+                    que.push(tmp_data->right);
+            }
+            res.insert(res.begin(), tmp);
         }
-        if (v.size() == level){
-            v.push_back({root->val});
-        }else{
-            v[level].push_back(root->val);
-        }
-        levelOB(root->left, level + 1);
-        levelOB(root->right, level + 1);
+        return res;
     }
 };
 // @lc code=end

@@ -46,15 +46,14 @@
 class Solution {
 public:
     int minDepth(TreeNode* root) {
-        if (!root){
+        if (root == NULL)
             return 0;
-        }else if (!root->left && !root->right){
+        else if(!root->left && !root->right)
             return 1;
-        }else if (root->left && root->right){
-            return 1 + std::min(minDepth(root->left), minDepth(root->right));
-        }else{
+        else if(root->left && root->right)
+            return 1 + min(minDepth(root->left), minDepth(root->right));
+        else
             return 1 + (root->left ? minDepth(root->left) : minDepth(root->right));
-        }
     }
 };
 // @lc code=end

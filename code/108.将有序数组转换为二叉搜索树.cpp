@@ -47,17 +47,29 @@
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return sortedArrayToBST(nums.begin(), nums.end());
+        //return sortedArrayToBST(nums.begin(), nums.end());
+        if (nums.size() == 0)
+            return NULL;
+        return helper(nums, 0, nums.size());
     }
 
-    TreeNode* sortedArrayToBST(vector<int>::iterator beg, vector<int>::iterator end){
+    TreeNode* helper(vector<int>& nums, int beg, int end){
+        if (beg == end)
+            return NULL;
+        int middle = beg + (end - beg) / 2;
+        TreeNode *root = new TreeNode(nums[middle]);
+        root->left = helper(nums, beg, middle);
+        root->right = helper(nums, middle + 1, end);
+        return root;
+    }
+    TreeNode* helper2(vector<int>::iterator beg, vector<int>::iterator end){
         if (beg == end){
             return NULL;
         }
         auto mid = beg + (end - beg) / 2;
         TreeNode *root = new TreeNode(*mid);
-        root->left = sortedArrayToBST(beg, mid);
-        root->right = sortedArrayToBST(std::next(mid), end);
+        root->left = helper2(beg, mid);
+        root->right = helper2(std::next(mid), end);
         return root;
     }
 };

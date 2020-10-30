@@ -65,23 +65,17 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        height(root);
-        return yesItIs;
+        if(!root)
+            return true;
+        return abs(height(root->left) - height(root->right)) <= 1 && isBalanced(root->left) && isBalanced(root->right);
     }
-private:
-    bool yesItIs = true;
-    int height(TreeNode *node){
-        if (!node || !yesItIs){
+    int height(TreeNode* root){
+        if(root == NULL)
             return 0;
-        }else{
-            int leftheight = height(node->left);
-            int rightheight = height(node->right);
-            if (std::abs(leftheight - rightheight) > 1){
-                yesItIs = false;
-            }
-            return std::max(leftheight, rightheight) + 1;
-        }
+        else
+            return max(height(root->right), height(root->left)) + 1;
     }
+
 };
 // @lc code=end
 
