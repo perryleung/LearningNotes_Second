@@ -56,8 +56,18 @@
  */
 class Solution {
 public:
+    int ans = INT_MIN;
     int maxPathSum(TreeNode* root) {
-
+        helper(root);
+        return ans;
+    }
+    int helper(TreeNode *root) {
+        if (root == nullptr)
+            return 0;
+        int left = max(0, helper(root->left));
+        int right = max(0, helper(root->right));
+        ans = max(ans, left + right + root->val);
+        return max(left, right) + root->val;
     }
 };
 // @lc code=end
