@@ -49,15 +49,31 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int profit(0);
-        for (auto i = prices.begin(); i != prices.end(); i++){
-            if ((i + 1 != prices.end()) && (*i < *(i + 1))){
-                //i.end()指向的是末尾元素的下一个元素
-                profit += *(i + 1) - *i;
-            }
+        if(prices.empty())
+            return 0;
+        int dp_i_0 = 0;
+        int dp_i_1 = INT_MIN;
+        for (int i = 0; i < prices.size(); i++)
+        {
+            dp_i_0 = max(dp_i_0, dp_i_1 + prices[i]);
+            dp_i_1 = max(dp_i_1, dp_i_0 - prices[i]);
         }
-        return profit;
+        return dp_i_0;
     }
+        /*
+        int maxPro = 0;
+        auto ite = prices.begin() + 1;
+        for (; ite != prices.end(); ite++)
+        {
+            int tmp = *ite - *(ite - 1);
+            if (tmp <= 0)
+                continue;
+            maxPro += tmp;
+            //maxPro += max(0, *(ite + 1) - *ite);
+        }
+        return maxPro;
+
+    }*/
 };
 // @lc code=end
 

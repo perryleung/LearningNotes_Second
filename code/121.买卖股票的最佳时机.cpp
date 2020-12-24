@@ -40,16 +40,30 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        if (prices.empty()){
+        if(prices.empty())
             return 0;
+        int dp_i_0 = 0;
+        int dp_i_1 = INT_MIN;
+        for (int i = 0; i < prices.size(); i++)
+        {
+            dp_i_0 = max(dp_i_0, dp_i_1 + prices[i]);
+            dp_i_1 = max(dp_i_1, -prices[i]);
         }
-        int maxPro(0);
+        return dp_i_0;
+        /*
         int low = prices[0];
-        for (auto price : prices){
-            low = low < price ? low : price;
+        int maxPro = 0;
+        for(int price : prices)
+        {
+            if(price < low)
+            {
+                low = price;
+                continue;   //自加，如果更新了最低值就不用判断下面的了
+            }     
             maxPro = (price - low) > maxPro ? (price - low) : maxPro;
         }
         return maxPro;
+        */
     }
 };
 // @lc code=end
