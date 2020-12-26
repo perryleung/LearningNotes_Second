@@ -31,7 +31,42 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        if(nums.size()==0)
+            return res;
         unordered_map<int, int> m;
+        for (int i = 0; i < nums.size(); i++)
+            m[nums[i]] = i;
+        for (int i = 0; i < nums.size(); i++) {
+            int other = target - nums[i];
+            if (m.count(other) && m[other] != i)
+            //防止重复使用，[3,2,4]&6 ->not [0, 0] but[1,2]
+            {
+                res.push_back(i);
+                res.push_back(m[other]);
+                return res;
+            }
+        }
+        return res;
+    }
+        /* vector<int> res;
+        if(nums.size()==0)
+            return res;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            for (int j = i + 1; j < nums.size(); j++)
+            {
+                if(nums[i] + nums[j] == target)
+                {
+                    res.push_back(i);
+                    res.push_back(j);
+                    return res;
+                }
+            }
+        }
+        return res;
+    } */
+       /*  unordered_map<int, int> m;
         vector<int> result;
         for (int i = 0; i < nums.size(); i++){
             if(m.find(target-nums[i]) == m.end()){
@@ -43,7 +78,7 @@ public:
             }
         }
         return result;
-    }
+    } */
 };
 // @lc code=end
 

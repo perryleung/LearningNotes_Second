@@ -51,13 +51,17 @@ class Solution {
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
-        int pre = 0, cur = 0;
-        for (int i = 0; i < n; i++){
-            int temp = max(pre + nums[i], cur);
-            pre = cur;
-            cur = temp;
+        if (n == 0)
+            return 0;
+        int cur_money = 0;
+        int pre_money = 0;
+        for(int i = 0; i < n; i++)
+        {
+            int tmp = max(cur_money, pre_money + nums[i]);
+            pre_money = cur_money;  //更新步骤
+            cur_money = tmp;        //不能掉乱
         }
-        return cur;
+        return cur_money;
     }
 };
 // @lc code=end

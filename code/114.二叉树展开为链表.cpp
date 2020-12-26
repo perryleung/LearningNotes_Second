@@ -59,12 +59,19 @@ public:
     void flatten(TreeNode* root) {
         if(!root)
             return;
-        flatten(root->right);
         flatten(root->left);
-        if(root->right){
-            tmp = root->right;
-            
-        }
+        flatten(root->right);
+
+        TreeNode *left = root->left;
+        TreeNode *right = root->right;
+
+        root->left = NULL;
+        root->right = left;
+
+        TreeNode *p = root;
+        while(p->right)//这里要好好理解一下，很容易
+            p = p->right;
+        p->right = right;
     }
     
 };
