@@ -45,7 +45,7 @@
  */
 class Solution {
 public:
-    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int preL, int preR, int inL, int inR){
+    /* TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int preL, int preR, int inL, int inR){
         if(preL > preR || inL > inR)
             return NULL;
         int pivot = preorder[preL];
@@ -56,13 +56,31 @@ public:
         root->left = helper(preorder, inorder, preL + 1, pivot_index_in_inorder - inL + preL, inL, pivot_index_in_inorder - 1);
         root->right = helper(preorder, inorder, pivot_index_in_inorder - inL + preL + 1, preR, pivot_index_in_inorder + 1, inR);
         return root;
-    }
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    } */
+    /* TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         int pre_size = preorder.size();
         int in_size = inorder.size();
         if (pre_size != in_size || pre_size < 0 || in_size < 0)
             return NULL;
         return helper(preorder, inorder, 0, pre_size - 1, 0, in_size - 1);
+    } */
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int pre_size = preorder.size();
+        int in_size = inorder.size();
+        if (pre_size != in_size || pre_size < 1 || in_size < 1)
+            return nullptr;
+        return helper(preorder, inorder, 0, pre_size - 1, 0, in_size - 1);
+    }
+    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int pre_left, int pre_right, int in_left, int in_right) {
+        if(pre_left > pre_right || in_left > in_right)
+            return nullptr;
+        TreeNode *root = new TreeNode(preorder[pre_left]);
+        int index_in_inorder = 0;
+        while(inorder[index_in_inorder] != preorder[pre_left])
+            ++index_in_inorder;
+        root->left = helper(preorder, inorder, pre_left + 1, index_in_inorder - in_left + pre_left, in_left, index_in_inorder - 1);
+        root->right = helper(preorder, inorder, index_in_inorder - in_left + pre_left + 1, pre_right, index_in_inorder + 1, in_right);
+        return root;
     }
 };
 // @lc code=end

@@ -47,10 +47,10 @@
 class Solution {
 public:
     TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
-    return create(inorder, postorder, 0, inorder.size() - 1, 0, postorder.size() - 1);
+    return helper(inorder, postorder, 0, inorder.size() - 1, 0, postorder.size() - 1);
     }
 
-    TreeNode* create(vector<int> &inorder, vector<int> &postorder, int is, int ie, int ps, int pe){
+    /* TreeNode* create(vector<int> &inorder, vector<int> &postorder, int is, int ie, int ps, int pe){
         if(ps > pe){
             return nullptr;
         }
@@ -65,6 +65,20 @@ public:
         node->left = create(inorder, postorder, is, pos - 1, ps, ps + pos - is - 1);
         node->right = create(inorder, postorder, pos + 1, ie, ps + pos - is, pe - 1);
         return node;
+    } */
+    TreeNode* helper(vector<int>& inorder, vector<int>& postorder, int is, int ie, int ps, int pe) {
+        if(ps > pe)
+            return nullptr;
+        TreeNode *root = new TreeNode(postorder[pe]);
+        int index_in_inorder = -1;
+        for (int i = is; i <= ie; ++i)
+            if(inorder[i] == postorder[pe]) {
+                index_in_inorder = i;
+                break;
+            }
+        root->left = helper(inorder, postorder, is, index_in_inorder - 1, ps, index_in_inorder - is + ps - 1);
+        root->right = helper(inorder, postorder, index_in_inorder + 1, ie, index_in_inorder - is + ps, pe - 1);
+        return root;
     }
 };
 // @lc code=end
