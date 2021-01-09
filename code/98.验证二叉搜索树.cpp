@@ -74,9 +74,9 @@ vector<int> question(TreeNode* root){
 
 class Solution {
 public:
-    long lower = LONG_MIN;
+    //long lower = LONG_MIN;//要long才行，不然不能通过所有示例
     bool isValidBST(TreeNode* root) {
-        if(!root)
+        /* if(!root)
             return true;
         bool left = isValidBST(root->left);
         if(root->val > lower)
@@ -84,7 +84,17 @@ public:
         else
             return false;
         bool right = isValidBST(root->right);
-        return left && right;
+        return left && right; */
+        return helper(root, nullptr, nullptr);
+    }
+    bool helper(TreeNode* root, TreeNode* min, TreeNode* max) {
+        if(!root)
+            return true;
+        if(min != nullptr && min->val >= root->val)
+            return false;
+        if(max != nullptr && max->val <= root->val)
+            return false;
+        return helper(root->left, min, root) && helper(root->right, root, max);
     }
 };
 // @lc code=end
