@@ -74,18 +74,71 @@
  */
 
 // @lc code=start
+struct Node {
+    int key, val, freq;
+    Node(int _key, int _val, int _freq):key(_key), val(_val), freq(_freq) {}
+};
 class LFUCache {
+private:
+    int cap;
+    int minFreq;
+    unordered_map<int, list<Node>::iterator> keyTable;
+    unordered_map<int, list<Node>> freqTable;
+    void increaseFreq(int key) {
+        list<Node>::iterator node = keyTable[key];
+        int freq = node->freq;
+        int val = node->val;
+        freqTable[freq].erase(node);
+        if(freqTable[freq].size() == 0) {
+            freqTable.erase(freq);
+            if(freq == minFreq)
+                minFreq += 1;
+        }
+        freqTable[freq + 1].push_front(Node(key, val, freq + 1));
+        keyTable[key] = freqTable[freq + 1].begin();
+    }
+    void removeMinFreqKey() {
+        Node nodeTodelete = freqTable[minFreq].back();
+        freqTable[minFreq].pop_back();
+        if(freqTable[minFreq].size() == 0)
+            freqTable.erase(minFreq);
+        keyTable.erase(nodeTodelete.key);
+    }
+
 public:
     LFUCache(int capacity) {
-
+        cap = capacity;
+        minFreq = 0;
+        keyTable.clear();
+        freqTable.clear();
     }
     
     int get(int key) {
-
+        if(cap == 0)
+            return -1;
+        auto it = keyTable.find(key);
+        if(it == keyTable.end())
+            return -1;
+        increaseFreq(key);
+        return it->second->val;
     }
     
     void put(int key, int value) {
-
+        if(cap == 0)
+            return;
+        auto it = keyTable.find(key);
+        if(it != keyTable.end()) {
+            increaseFreq(key);
+            keyTable[key]->val = value;
+        }else {
+            if(keyTable.size() == cap) {
+                removeMinFreqKey();
+            }
+            freqTable[1].push_front(Node(key, value, 1));
+            keyTable[key] = freqTable[1].begin();
+            minFreq = 1;
+        }
+        return;
     }
 };
 
