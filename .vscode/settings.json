@@ -5,6 +5,7 @@
         "vector": "cpp",
         "deque": "cpp",
         "string": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "type_traits": "cpp"
     }
 }

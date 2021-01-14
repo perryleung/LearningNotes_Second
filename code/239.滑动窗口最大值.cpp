@@ -76,10 +76,39 @@
  */
 
 // @lc code=start
+class ModifiedQueue {
+private:
+    deque<int> q;
+public:
+    void push(int n) {
+        while(!q.empty() && q.back() < n)// attetion!! q.back()!!!
+        // try 4\3\5\7\6\2\5\1
+            q.pop_back();
+        q.push_back(n);
+    }
+    void pop(int n) {
+        if(n == q.front())
+            q.pop_front();
+    }
+    int getMax() {
+        return q.front();
+    }
+};
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        
+        vector<int> res;
+        ModifiedQueue mq;
+        for (int i = 0; i < (int)nums.size(); ++i) {
+            if (i < k - 1)
+                mq.push(nums[i]);
+            else {
+                mq.push(nums[i]);
+                res.push_back(mq.getMax());
+                mq.pop(nums[i - k + 1]);
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
