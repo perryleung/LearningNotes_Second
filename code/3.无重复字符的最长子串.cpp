@@ -70,16 +70,14 @@ public:
         int left = 0;
         int right = 0;
         int len = 0;
-        while(right < s.size())
-        {
-            char c = s[right];
+        while(right < s.size()) {
+            char c_r = s[right];
             right++;
-            window[c]++;
-            while (window[c] > 1)
-            {
-                char d = s[left];
+            window[c_r]++;
+            while(window[c_r] > 1) {
+                char c_l = s[left];
                 left++;
-                window[d]--;
+                window[c_l]--;
             }
             if(len < right - left)
                 len = right - left;

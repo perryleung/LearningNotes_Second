@@ -40,7 +40,7 @@
 class Solution {
 public:
     //暴力法
-    ListNode* deleteDuplicates(ListNode* head) {
+    /* ListNode* deleteDuplicates(ListNode* head) {
         for (ListNode *p = head; p && p->next;){
             if(p->val==p->next->val){
                 p->next = p->next->next;
@@ -48,6 +48,22 @@ public:
             }
             p = p->next;
         }
+        return head;
+    } */
+    //双指针
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head || !head->next)
+            return head;
+        ListNode *slow = head;
+        ListNode *fast = head->next;
+        while(fast) {
+            if(slow->val != fast->val) {
+                slow->next = fast;
+                slow = fast;
+            }
+            fast = fast->next;
+        }
+        slow->next = nullptr;
         return head;
     }
 };

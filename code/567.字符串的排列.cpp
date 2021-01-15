@@ -55,28 +55,24 @@ public:
         int left = 0;
         int right = 0;
         int valid = 0;
-        while(right < s2.size())
-        {
-            char c = s2[right];
+        while(right < s2.size()) {
+            char c_r = s2[right];
             right++;
-            if(need.count(c))
-            {
-                window[c]++;
-                if(need[c]==window[c])
+            if(need.count(c_r)) {
+                window[c_r]++;
+                if(window[c_r] == need[c_r])
                     valid++;
             }
-            while ((right - left) == s1.size())
-            {
-                if (valid == need.size())
+            if(right - left >= s1.size()) {
+                if(valid == need.size())
                     return true;
-                char d = s2[left];
+                char c_l = s2[left];
                 left++;
-                if(need.count(d))
-                {
-                    if (window[d] == need[d])
+                if(need.count(c_l)) {
+                    if(window[c_l] == need[c_l])
                         valid--;
-                    window[d]--;
-                }
+                    window[c_l]--;
+                }  
             }
         }
         return false;

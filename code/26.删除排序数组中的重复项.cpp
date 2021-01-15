@@ -72,7 +72,7 @@ public:
         }
     }
 */
-    int size = 1;
+    /* int size = 1;
     int n = nums.size();
     if (n == 0 || n == 1)
         return n;
@@ -82,7 +82,19 @@ public:
             curv = nums[j];
         }
     }
-    return size;
+    return size; */
+        int n = nums.size();
+        if(n == 0 || n == 1)
+            return n;
+        int slow = 0, fast = 1;
+        while(fast < n) {
+            if(nums[fast] != nums[slow]) {
+                slow++;
+                nums[slow] = nums[fast];
+            }
+            fast++;
+        }
+        return slow + 1;
     }
 };
 // @lc code=end

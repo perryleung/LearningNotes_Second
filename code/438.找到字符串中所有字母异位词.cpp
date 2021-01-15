@@ -76,7 +76,7 @@ public:
                 if (window[c] == need[c])//这里保证各个字符足够数量
                     valid++;
             }
-            while(right - left >= p.size())
+            if(right - left >= p.size())
             {
                 if (valid == need.size())//是need.size()
                     res.push_back(left);
