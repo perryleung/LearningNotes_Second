@@ -56,14 +56,14 @@ public:
     
     /** Returns a random node's value. */
     int getRandom() {
-        int res;
+        int res = h->val;
         ListNode *cur = h;
         int n = 1;
         while(cur) {
-            if (rand() % n == 0)
+            if(rand() % n == 0)
                 res = cur->val;
             cur = cur->next;
-            n++;
+            ++n;
         }
         return res;
     }

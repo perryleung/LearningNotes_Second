@@ -39,12 +39,31 @@ public:
     vector<vector<int>> permute(vector<int>& nums) {
         if(nums.size() < 1)
             return res;
+        if(nums.size() == 1) {
+            res.push_back(nums);
+            return res;
+        }
         vector<bool> used(nums.size(), false);
-        helper(nums, used);
+        traceBack(nums, used);
         return res;
     }
+    void traceBack(const vector<int> & nums, vector<bool> & used) {
+        if(path.size() == nums.size()) {
+            res.push_back(path);
+            return;
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            if(used[i])
+                continue;
+            path.push_back(nums[i]);
+            used[i] = true;
+            traceBack(nums, used);
+            path.pop_back();
+            used[i] = false;
+        }
+    }
 
-    void helper(vector<int>& nums, vector<bool>& used)
+    /* void helper(vector<int>& nums, vector<bool>& used)
     {
         if (nums.size() == path.size())
         {
@@ -60,8 +79,7 @@ public:
             helper(nums, used);
             path.pop_back();
             used[i] = false;
-        }
-    }
+        } */
 };
 // @lc code=end
 

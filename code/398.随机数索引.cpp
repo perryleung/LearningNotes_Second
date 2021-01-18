@@ -43,6 +43,27 @@ public:
     
     int pick(int target) {
         int cnt = 1;
+        int flag = 0;
+        int index = -1;
+        int res = index;
+        for(int n : nums) {
+            ++index;
+            if(flag == 0) {
+                if(n == target) {
+                    flag = 1;
+                    res = index;
+                }
+                continue;
+            }
+            if(n == target) {
+                cnt++;
+                if(rand() % cnt == 0)
+                    res = index ;
+            }
+        }
+        return res;
+    }
+        /* int cnt = 1;
         int flag = 1;
         int res;
         int index = -1;
@@ -62,7 +83,7 @@ public:
             }
         }
         return res;
-    }
+    } */
 };
 
 /**

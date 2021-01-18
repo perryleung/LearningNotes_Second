@@ -28,18 +28,51 @@
 class Solution {
 public:
     int countPrimes(int n) {
-        vector<bool> prime(n, true);
-        prime[0] = false;
-        prime[1] = false;
-        for (int i = 0; i < sqrt(n); i++){
-            if(prime[i]){
-                for (int j = i * i; j < n; j += i){
-                    prime[j] = false;
-                }
-            }
+        vector<bool> res(n, true);
+        for (int i = 2; i * i < n; ++i) {
+            if(isPrime(i))
+                for (int j = 2 * i; j < n; j += i)
+                    res[j] = false;
         }
-        return count(prime.begin(), prime.end(), true);
+        int count = 0;
+        for (int i = 2; i < n; ++i) 
+            if(res[i])
+                ++count;
+        return count;
     }
+    bool isPrime(int n) {
+        for (int i = 2; i * i < n; ++i) {
+            if(n % i == 0)
+                return false;
+        }
+        return true;
+    }
+        /* int res = 0;
+        for (int i = 2; i < n; i++) {
+            if(isPrimes(i))
+                res++;
+        }
+        return res; */
+        /* vector<bool> res(n, true);
+        for (int i = 2; i * i < n; i++) {//将i<n优化成i*i<n
+            if(isPrimes(i))
+                for (int j = i * i; j < n; j += i)//将j=2*i优化成j=i*i, 但是个人觉得这里j = 2 * i 更好
+                    res[j] = false;
+        }
+        int count = 0;
+        for (int i = 2; i < n; ++i) {
+            if(res[i])
+                count++;
+        }
+        return count;
+    }
+    bool isPrimes(int n) {
+        for (int i = 2; i * i <= n; i++) {
+            if(n % i == 0)
+                return false;
+        }
+        return true;
+    } */
 };
 // @lc code=end
 
