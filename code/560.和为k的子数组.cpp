@@ -35,7 +35,34 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-
+        /* vector<int> preSum(nums.size() + 1, 0);
+        for (int i = 0; i <= nums.size(); ++i) {
+            preSum[i+1] = preSum[i] + nums[i];
+        }
+        int res = 0;
+        for (int i = 1; i <= nums.size(); ++i) {
+            for (int j = 0; j < i; ++j)
+                if(preSum[i] - preSum[j] == k)
+                    ++res;
+        }
+        return res; */
+        int n = nums.size();
+        //vector<int> preSum(n + 1, 0);
+        unordered_map<int, int> mapped; //记录前缀和->前缀和出现的次数
+        mapped[0] = 1;
+        int res = 0;
+        int sum_i = 0;
+        for (int i = 0; i < n; ++i) {
+            sum_i = sum_i + nums[i];
+            int sum_j = sum_i - k;
+            if (mapped.count(sum_j))
+                res += mapped[sum_j];
+            if (mapped.count(sum_i))
+                mapped[sum_i] += 1;
+            else
+                mapped[sum_i] = 1;
+            }
+        return res;
     }
 };
 // @lc code=end
